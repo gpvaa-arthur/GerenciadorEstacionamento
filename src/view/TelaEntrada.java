@@ -37,6 +37,7 @@ public class TelaEntrada implements ITela{
         List<JSpinner> listaSP = configurarSpinners(gbc);
 
         //-----------------  TextField placa  -------------------//
+        //todo: Modificar para JFormmated (7 caracteres máximo)
         JTextField textoPlaca = new JTextField();
         AuxLayout.setup(gbc,2,4,2,1,0.0,0.0);
         gbc.insets = new Insets(8,12,0,0);
