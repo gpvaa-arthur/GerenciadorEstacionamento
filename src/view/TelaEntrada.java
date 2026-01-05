@@ -6,8 +6,10 @@ import view.util.AuxLayout;
 import view.util.Navegador;
 
 import javax.swing.*;
+import javax.swing.text.MaskFormatter;
 import java.awt.*;
 
+import java.text.ParseException;
 import java.util.List;
 public class TelaEntrada implements ITela{
 
@@ -37,12 +39,16 @@ public class TelaEntrada implements ITela{
         List<JSpinner> listaSP = configurarSpinners(gbc);
 
         //-----------------  TextField placa  -------------------//
-        //todo: Modificar para JFormmated (7 caracteres máximo)
-        JTextField textoPlaca = new JTextField();
+        MaskFormatter mascaraPlaca = null;
+        try {
+            mascaraPlaca = new MaskFormatter("AAAAAAAA");
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        JFormattedTextField textoPlaca = new JFormattedTextField(mascaraPlaca);
         AuxLayout.setup(gbc,2,4,2,1,0.0,0.0);
         gbc.insets = new Insets(8,12,0,0);
         gbc.fill = GridBagConstraints.HORIZONTAL;
-
         panel.add(textoPlaca, gbc);
 
         //-----------------  Botão registrar -------------------//
@@ -50,6 +56,7 @@ public class TelaEntrada implements ITela{
         AuxLayout.reset(gbc);
         AuxLayout.setup(gbc,1,5,3,1,0.0,0.0);
         gbc.insets = new Insets(15,0,0,0);
+
 
         botaoRegistrar.addActionListener(e -> {
             /*for(JComboBox box : listaCB){
@@ -64,6 +71,7 @@ public class TelaEntrada implements ITela{
             System.out.println(getHoras(listaSP));
             System.out.println(getMinutos(listaSP));
             System.out.println(getPlaca(textoPlaca));
+
         });
         panel.add(botaoRegistrar, gbc);
 
@@ -179,7 +187,7 @@ public class TelaEntrada implements ITela{
     private int getMinutos(List <JSpinner> listaSP){
         return (Integer) listaSP.getLast().getModel().getValue();
     }
-    private String getPlaca(JTextField labelPlaca){
+    private String getPlaca(JFormattedTextField labelPlaca){
         return labelPlaca.getText();
     }
 }

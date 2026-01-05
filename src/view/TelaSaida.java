@@ -4,7 +4,9 @@ import view.util.AuxLayout;
 import view.util.Navegador;
 
 import javax.swing.*;
+import javax.swing.text.MaskFormatter;
 import java.awt.*;
+import java.text.ParseException;
 import java.util.List;
 
 public class TelaSaida implements ITela{
@@ -32,8 +34,13 @@ public class TelaSaida implements ITela{
         configurarLabels(gbc);
         configurarSpinners(gbc);
         //-----------------  TextField placa  -------------------//
-        //todo: Modificar para JFormmated (7 caracteres máximo)
-        JTextField textoPlaca = new JTextField();
+        MaskFormatter mascaraPlaca = null;
+        try {
+            mascaraPlaca = new MaskFormatter("AAAAAAAA");
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        JFormattedTextField textoPlaca = new JFormattedTextField(mascaraPlaca);
         textoPlaca.setPreferredSize(new Dimension(120, textoPlaca.getPreferredSize().height));
         AuxLayout.setup(gbc,2,1,2,1,0.0,0.0);
         gbc.anchor = GridBagConstraints.LINE_START;
