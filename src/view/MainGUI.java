@@ -9,7 +9,7 @@ import java.util.List;
 //Classe responsável pela configuração da tela principal
 
 public class MainGUI {
-    public static void main(String[] args) {
+    public void inicializarGUI() {
         JFrame janela = new JFrame();
         JPanel mainPanel = new JPanel(new GridBagLayout());
         janela.setContentPane(mainPanel);
