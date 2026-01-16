@@ -33,6 +33,7 @@ public class MainGUI {
         CardLayout cards = new CardLayout();
         JPanel cardsPanel = new JPanel(cards);
         Navegador navegador = new Navegador(cards, cardsPanel);
+        AutenticadorGUI autenticadorGUI = new AutenticadorGUI();
 
         List<ITela> listaTela = List.of(
                 new TelaEntrada(),
@@ -97,14 +98,25 @@ public class MainGUI {
         //-------- (Panel Cinza). Botão Histórico -----------//
         JButton historico = new JButton("Histórico");
 
-
+        //todo: Ativar funcionalidade histórico
+/*
         historico.addActionListener(e ->{
             if(!(navegador.getIdAtual().equals(IDEnum.HISTORICO))){
-                navegador.setIdAtual(IDEnum.HISTORICO);
-                navegador.irPara(IDEnum.HISTORICO);
+                int valor = autenticadorGUI.autenticarSenha();
+                if( valor == 1){
+                    navegador.setIdAtual(IDEnum.HISTORICO);
+                    navegador.irPara(IDEnum.HISTORICO);
+                }
+                if(valor == -1){
+                    System.out.println("Senha incorreta!");
+                }
+                if(valor == 0){
+                    System.out.println("Janela fechada");
+                }
+
             }
         });
-
+*/
         AuxLayout.setup(gbc, 0,3,1,1,0.0,0.0);
         panelCinza.add(historico, gbc);
 
