@@ -6,7 +6,6 @@ public class VagaCarro extends Vaga {
         super(30);
     }
 
-
     @Override
     protected TiposEnum getTipoPermitido() {
         return TiposEnum.CARRO;

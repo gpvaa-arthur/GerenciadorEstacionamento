@@ -8,7 +8,7 @@ public class VagaOnibus extends Vaga {
 
     @Override
     protected TiposEnum getTipoPermitido() {
-        return TiposEnum.CAMINHAO;
+        return TiposEnum.ONIBUS;
     }
 
     @Override

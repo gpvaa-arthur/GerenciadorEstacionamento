@@ -3,6 +3,6 @@ package view;
 public enum IDEnum {
     ENTRADA,
     SAIDA,
-    OCUPACAO,
+    FATURAMENTO,
     HISTORICO
 }

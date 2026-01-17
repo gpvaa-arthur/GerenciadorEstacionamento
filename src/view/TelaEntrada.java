@@ -20,8 +20,7 @@ public class TelaEntrada implements ITela {
     private IDEnum ID = IDEnum.ENTRADA;
     private TicketRepository ticketRepository;
 
-    public TelaEntrada(TicketRepository ticketRepository){
-        this.ticketRepository = ticketRepository;
+    public TelaEntrada(TicketRepository ticketRepository){this.ticketRepository = ticketRepository;
     }
     @Override
     public JPanel getPanel() {
@@ -147,13 +146,15 @@ public class TelaEntrada implements ITela {
         gbc.insets = new Insets(8,12,0,0);
         panel.add(subpanelSpinners, gbc);
 
-        SpinnerNumberModel modelDia = new SpinnerNumberModel(1, 1, 31, 1);
+        //----------- Configuração spinner dia -----------//
+        SpinnerNumberModel modelDia = new SpinnerNumberModel(1, 1, 30, 1);
         JSpinner spinnerDia = new JSpinner(modelDia);
         spinnerDia.setPreferredSize(new Dimension(40, spinnerDia.getPreferredSize().height));
 
         subpanelSpinners.add(spinnerDia);
         subpanelSpinners.add(new JLabel("dia"));
 
+        //----------- Configuração spinner hora -----------//
         SpinnerNumberModel modelHora = new SpinnerNumberModel(0, 0, 23, 1);
         JSpinner spinnerHora = new JSpinner(modelHora);
         spinnerHora.setPreferredSize(new Dimension(40, spinnerHora.getPreferredSize().height));
@@ -161,6 +162,7 @@ public class TelaEntrada implements ITela {
         subpanelSpinners.add(spinnerHora);
         subpanelSpinners.add(new JLabel("h"));
 
+        //----------- Configuração spinner minutos -----------//
         SpinnerNumberModel modelMinutos = new SpinnerNumberModel(0, 0, 59, 1);
         JSpinner spinnerMinutos = new JSpinner(modelMinutos);
         spinnerMinutos.setPreferredSize(new Dimension(40, spinnerHora.getPreferredSize().height));

@@ -1,6 +1,5 @@
 package view;
 
-import main.Main;
 import repository.TicketRepository;
 import view.util.*;
 
@@ -45,7 +44,7 @@ public class MainGUI {
         List<ITela> listaTela = List.of(
                 new TelaEntrada(ticketRepository),
                 new TelaSaida(ticketRepository),
-                new TelaOcupacao(ticketRepository),
+                new TelaFaturamento(ticketRepository),
                 new TelaHistorico(ticketRepository)
         );
 
@@ -88,29 +87,39 @@ public class MainGUI {
         gbc.insets = new Insets(10,0,0,0);
         panelCinza.add(saida, gbc);
 
-        //-------- (Panel Cinza). Botão Ocupação -----------//
-        JButton ocupacao = new JButton("Disponibilidade");
+        //-------- (Panel Cinza). Botão Faturamento -----------//
+        JButton faturamento = new JButton("Faturamento");
 
 
-        ocupacao.addActionListener(e ->{
-            if(!(navegador.getIdAtual().equals(IDEnum.OCUPACAO))){
-                navegador.setIdAtual(IDEnum.OCUPACAO);
-                navegador.irPara(IDEnum.OCUPACAO);
+        faturamento.addActionListener(e ->{
+            if(!(navegador.getIdAtual().equals(IDEnum.FATURAMENTO))){
+                int valor = autenticadorGUI.autenticarSenha();
+                if(valor == 1){
+                    navegador.setIdAtual(IDEnum.FATURAMENTO);
+                    navegador.irPara(IDEnum.FATURAMENTO);
+                }
+                if(valor == -1){
+                    System.out.println("Senha incorreta!");
+                }
+                if(valor == 0){
+                    System.out.println("Janela fechada");
+                }
+
             }
         });
 
         AuxLayout.setup(gbc, 0,2,1,1,0.0,0.0);
-        panelCinza.add(ocupacao, gbc);
+        panelCinza.add(faturamento, gbc);
 
         //-------- (Panel Cinza). Botão Histórico -----------//
         JButton historico = new JButton("Histórico");
 
         //todo: Ativar funcionalidade histórico
-/*
+
         historico.addActionListener(e ->{
             if(!(navegador.getIdAtual().equals(IDEnum.HISTORICO))){
                 int valor = autenticadorGUI.autenticarSenha();
-                if( valor == 1){
+                if(valor == 1){
                     navegador.setIdAtual(IDEnum.HISTORICO);
                     navegador.irPara(IDEnum.HISTORICO);
                 }
@@ -123,7 +132,7 @@ public class MainGUI {
 
             }
         });
-*/
+
         AuxLayout.setup(gbc, 0,3,1,1,0.0,0.0);
         panelCinza.add(historico, gbc);
 

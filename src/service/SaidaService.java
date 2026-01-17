@@ -54,6 +54,7 @@ public class SaidaService {
         repository.removerTicketAtivo(placa);
         repository.addTicketFinalizado(placa, ticket);
 
+        System.out.println(valor);
         return valor;
     }
 }

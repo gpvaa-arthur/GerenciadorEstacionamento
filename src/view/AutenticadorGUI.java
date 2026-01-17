@@ -1,10 +1,12 @@
 package view;
 
+import service.AutenticarSenhaService;
+
 import javax.swing.*;
 
 public class AutenticadorGUI {
     public int autenticarSenha() {
-
+        AutenticarSenhaService autenticarSenhaService = new AutenticarSenhaService();
         JPasswordField campoSenha = new JPasswordField();
         String[] botoes = {"Entrar", "Cancelar"};
 
@@ -22,9 +24,9 @@ public class AutenticadorGUI {
 
         //todo Adicionar método service para autenticar senha
         if (escolha == 0) { // 0 é o índice do botão "Entrar"
-            // if(autenticarSenha(campoSenha) == 1){return 1;}
-            // else{return -1;}
-            campoSenha.getPassword();
+            System.out.println(campoSenha.getPassword());
+            return autenticarSenhaService.autenticarSenha(campoSenha);
+
         }
 
         return 0; // Usuário cancelou
