@@ -4,7 +4,7 @@ public abstract class Vaga {
     protected int totalVagas;
     protected TiposEnum[] vagas;
 
-    //construtor que recebe a quant total de vagas
+    //construtor que recebe a quantidade total de vagas
     public Vaga(int totalVagas) {
         this.totalVagas = totalVagas;
         this.vagas = new TiposEnum[totalVagas];
@@ -54,10 +54,24 @@ public abstract class Vaga {
         return vagas[numeroVaga];
     }
 
+    //Mostra o estado de todas as vagas desse tipo
+    public void show() {
+        System.out.println("=== " + getDescricao() + " ===");
+
+        for (int i = 0; i < totalVagas; i++) {
+            if (vagas == null) {
+                System.out.println("Vaga" + i + ": Livre");
+            } else {
+                System.out.println("Vaga" + i + ": Ocupada por" + vagas[i]);
+            }
+        }
+        System.out.println(); //Linha em branco para organização
+    }
+
     //verifica se o número da vaga é válido
     protected void validarNumeroVaga(int numeroVaga) {
         if (numeroVaga < 0 || numeroVaga >= totalVagas) {
-            throw new IllegalArgumentException("Número de vagas é inválido");
+            throw new IllegalArgumentException("Número da vaga é inválido");
         }
     }
 
