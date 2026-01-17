@@ -1,13 +1,19 @@
 package view;
 
+import repository.TicketRepository;
 import view.util.Navegador;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class TelaOcupacao implements ITela{
+public class TelaFaturamento implements ITela{
     private JPanel panel = new JPanel();
-    private IDEnum ID = IDEnum.OCUPACAO;
+    private IDEnum ID = IDEnum.FATURAMENTO;
+    private TicketRepository ticketRepository;
+
+    public TelaFaturamento(TicketRepository ticketRepository){
+        this.ticketRepository = ticketRepository;
+    }
 
     @Override
     public JPanel getPanel(){
@@ -24,7 +30,7 @@ public class TelaOcupacao implements ITela{
 
         GridBagConstraints gbc = new GridBagConstraints();
         panel.setLayout(new GridBagLayout());
-        panel.add(new JButton("VERIFICAR DISPONIBILIDADE"));
+        panel.add(new JButton("VERIFICAR FATURAMENTO"));
 
 
     }

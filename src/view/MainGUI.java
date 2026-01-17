@@ -1,5 +1,6 @@
 package view;
 
+import repository.TicketRepository;
 import view.util.*;
 
 import javax.swing.*;
@@ -9,7 +10,12 @@ import java.util.List;
 //Classe responsável pela configuração da tela principal
 
 public class MainGUI {
-    public void inicializarGUI() {
+    private TicketRepository ticketRepository;
+
+    public MainGUI(TicketRepository ticketRepository){
+        this.ticketRepository = ticketRepository;
+    }
+    public void configurarGUI() {
         JFrame janela = new JFrame();
         JPanel mainPanel = new JPanel(new GridBagLayout());
         janela.setContentPane(mainPanel);
@@ -33,12 +39,13 @@ public class MainGUI {
         CardLayout cards = new CardLayout();
         JPanel cardsPanel = new JPanel(cards);
         Navegador navegador = new Navegador(cards, cardsPanel);
+        AutenticadorGUI autenticadorGUI = new AutenticadorGUI();
 
         List<ITela> listaTela = List.of(
-                new TelaEntrada(),
-                new TelaSaida(),
-                new TelaOcupacao(),
-                new TelaHistorico()
+                new TelaEntrada(ticketRepository),
+                new TelaSaida(ticketRepository),
+                new TelaFaturamento(ticketRepository),
+                new TelaHistorico(ticketRepository)
         );
 
         for (ITela iTela : listaTela) {
@@ -80,28 +87,49 @@ public class MainGUI {
         gbc.insets = new Insets(10,0,0,0);
         panelCinza.add(saida, gbc);
 
-        //-------- (Panel Cinza). Botão Ocupação -----------//
-        JButton ocupacao = new JButton("Disponibilidade");
+        //-------- (Panel Cinza). Botão Faturamento -----------//
+        JButton faturamento = new JButton("Faturamento");
 
 
-        ocupacao.addActionListener(e ->{
-            if(!(navegador.getIdAtual().equals(IDEnum.OCUPACAO))){
-                navegador.setIdAtual(IDEnum.OCUPACAO);
-                navegador.irPara(IDEnum.OCUPACAO);
+        faturamento.addActionListener(e ->{
+            if(!(navegador.getIdAtual().equals(IDEnum.FATURAMENTO))){
+                int valor = autenticadorGUI.autenticarSenha();
+                if(valor == 1){
+                    navegador.setIdAtual(IDEnum.FATURAMENTO);
+                    navegador.irPara(IDEnum.FATURAMENTO);
+                }
+                if(valor == -1){
+                    System.out.println("Senha incorreta!");
+                }
+                if(valor == 0){
+                    System.out.println("Janela fechada");
+                }
+
             }
         });
 
         AuxLayout.setup(gbc, 0,2,1,1,0.0,0.0);
-        panelCinza.add(ocupacao, gbc);
+        panelCinza.add(faturamento, gbc);
 
         //-------- (Panel Cinza). Botão Histórico -----------//
         JButton historico = new JButton("Histórico");
 
+        //todo: Ativar funcionalidade histórico
 
         historico.addActionListener(e ->{
             if(!(navegador.getIdAtual().equals(IDEnum.HISTORICO))){
-                navegador.setIdAtual(IDEnum.HISTORICO);
-                navegador.irPara(IDEnum.HISTORICO);
+                int valor = autenticadorGUI.autenticarSenha();
+                if(valor == 1){
+                    navegador.setIdAtual(IDEnum.HISTORICO);
+                    navegador.irPara(IDEnum.HISTORICO);
+                }
+                if(valor == -1){
+                    System.out.println("Senha incorreta!");
+                }
+                if(valor == 0){
+                    System.out.println("Janela fechada");
+                }
+
             }
         });
 
@@ -110,7 +138,7 @@ public class MainGUI {
 
         //-------------- Configurações finais -----------------//
         janela.setTitle("Gerenciador de Estacionamento");
-        janela.setSize(500,400);
+        janela.setSize(550,400);
         janela.setVisible(true);
         janela.setLocationRelativeTo(null);
     }
