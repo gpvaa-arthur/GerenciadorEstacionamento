@@ -1,5 +1,8 @@
 package repository;
 
+import model.Carro;
+import model.Moto;
+import model.Onibus;
 import model.Ticket;
 
 import java.util.HashMap;
@@ -25,11 +28,38 @@ public class TicketRepository {
         return ticketsAtivos.get(placa);
     }
 
-    //TODO: Adicionar metodo que conta o numero de motos ativos
+    //Done: Adicionar metodo que conta o numero de motos ativos
+    public int contarMotosAtivas() {
+        int count = 0;
+        for (Ticket ticket : ticketsAtivos.values()) {
+            if (ticket.getVeiculo() instanceof Moto) {
+                count++;
+            }
+        }
+        return count;
+    }
 
-    //TODO: Adicionar metodo que conta o numero de carros ativos
+    //DONE: Adicionar metodo que conta o numero de carros ativos
+    public int contarCarrosAtivos() {
+        int count = 0;
+        for (Ticket ticket : ticketsAtivos.values()) {
+            if (ticket.getVeiculo() instanceof Carro) {
+                count++;
+            }
+        }
+        return count;
+    }
 
-    //TODO: Adicionar metodo que conta o numero de onibus ativos
+    //Done: Adicionar metodo que conta o numero de onibus ativos
+    public int contarOnibusAtivos() {
+        int count = 0;
+        for (Ticket ticket : ticketsAtivos.values()) {
+            if (ticket.getVeiculo() instanceof Onibus) {
+                count++;
+            }
+        }
+        return count;
+    }
 
     public void removerTicketAtivo(String placa) {
         ticketsAtivos.remove(placa);
