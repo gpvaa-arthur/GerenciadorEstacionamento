@@ -1,10 +1,11 @@
 package model;
 
-public class Carro extends Veiculo {
+public class Moto extends Veiculo {
 
-    private static final double TARIFA_POR_MINUTO = 0.20;
+    // Tarifa mais barata por minuto
+    private static final double TARIFA_POR_MINUTO = 0.10;
 
-    public Carro(String placa) {
+    public Moto(String placa) {
         super(placa);
     }
 
@@ -15,6 +16,6 @@ public class Carro extends Veiculo {
 
     @Override
     public String getTipo() {
-        return "CARRO";
+        return "MOTO";
     }
 }
