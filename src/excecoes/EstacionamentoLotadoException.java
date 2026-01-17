@@ -1,3 +1,4 @@
+// Para quando não tiver mais vagas no estacionamento
 package excecoes;
 
 public class EstacionamentoLotadoException extends Exception {
@@ -5,3 +6,4 @@ public class EstacionamentoLotadoException extends Exception {
         super(mensagem);
     }
 }
+
