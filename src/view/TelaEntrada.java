@@ -1,6 +1,9 @@
 package view;
 
 import model.TiposEnum;
+import repository.TicketRepository;
+import service.EntradaService;
+import service.FormatHorarioService;
 import view.util.AuxLayout;
 import view.util.Navegador;
 
@@ -8,13 +11,18 @@ import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class TelaEntrada implements ITela {
 
     private JPanel panel = new JPanel();
     private IDEnum ID = IDEnum.ENTRADA;
+    private TicketRepository ticketRepository;
 
+    public TelaEntrada(TicketRepository ticketRepository){
+        this.ticketRepository = ticketRepository;
+    }
     @Override
     public JPanel getPanel() {
         return this.panel;
@@ -27,9 +35,13 @@ public class TelaEntrada implements ITela {
 
     @Override
     public void configurar(Navegador nav) {
+        EntradaService entradaService = new EntradaService(ticketRepository);
+        FormatHorarioService horarioService = new FormatHorarioService();
 
         panel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
+
+        //-------- Configuração  por métodos auxiliares ---------//
 
         configurarMolas(gbc);
         configurarLabels(gbc);
@@ -39,7 +51,7 @@ public class TelaEntrada implements ITela {
         //-----------------  TextField placa  -------------------//
         MaskFormatter mascaraPlaca = null;
         try {
-            mascaraPlaca = new MaskFormatter("AAAAAAAA");
+            mascaraPlaca = new MaskFormatter("AAAAAAA");
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
@@ -56,8 +68,11 @@ public class TelaEntrada implements ITela {
         gbc.insets = new Insets(15, 0, 0, 0);
 
         botaoRegistrar.addActionListener(e -> {
+            LocalDateTime horarioEntrada = horarioService.criarHorario(getDia(listaSP), getHoras(listaSP), getMinutos(listaSP));
+            entradaService.registrarEntrada(textoPlaca.getText(),getTipo(listaCB), horarioEntrada);
 
             System.out.println(getTipo(listaCB));
+            System.out.println(getDia(listaSP));
             System.out.println(getHoras(listaSP));
             System.out.println(getMinutos(listaSP));
             System.out.println(getPlaca(textoPlaca));
@@ -129,7 +144,15 @@ public class TelaEntrada implements ITela {
 
         JPanel subpanelSpinners = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
         AuxLayout.setup(gbc, 2, 3, 2, 1, 0.0, 0.0);
+        gbc.insets = new Insets(8,12,0,0);
         panel.add(subpanelSpinners, gbc);
+
+        SpinnerNumberModel modelDia = new SpinnerNumberModel(1, 1, 31, 1);
+        JSpinner spinnerDia = new JSpinner(modelDia);
+        spinnerDia.setPreferredSize(new Dimension(40, spinnerDia.getPreferredSize().height));
+
+        subpanelSpinners.add(spinnerDia);
+        subpanelSpinners.add(new JLabel("dia"));
 
         SpinnerNumberModel modelHora = new SpinnerNumberModel(0, 0, 23, 1);
         JSpinner spinnerHora = new JSpinner(modelHora);
@@ -145,15 +168,17 @@ public class TelaEntrada implements ITela {
         subpanelSpinners.add(spinnerMinutos);
         subpanelSpinners.add(new JLabel("min"));
 
-        return List.of(spinnerHora, spinnerMinutos);
+        return List.of(spinnerDia,spinnerHora, spinnerMinutos);
     }
 
     private String getTipo(List<JComboBox> listaCB) {
         return listaCB.getFirst().getSelectedItem().toString();
     }
-
-    private int getHoras(List<JSpinner> listaSP) {
+    private int getDia(List<JSpinner> listaSP) {
         return (Integer) listaSP.getFirst().getModel().getValue();
+    }
+    private int getHoras(List<JSpinner> listaSP) {
+        return (Integer) listaSP.get(1).getModel().getValue();
     }
 
     private int getMinutos(List<JSpinner> listaSP) {

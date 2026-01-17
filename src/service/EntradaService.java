@@ -7,6 +7,7 @@ import model.Ticket;
 import model.Veiculo;
 import repository.TicketRepository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -24,7 +25,7 @@ public class EntradaService {
     public void registrarEntrada(
             String placa,
             String tipoVeiculo,
-            String dataHoraEntradaTexto
+            LocalDateTime horarioEntrada
     ) {
 
         // Verifica se ja existe ticket ativo pra placa
@@ -36,10 +37,6 @@ public class EntradaService {
 
         //  Cria o veiculo
         Veiculo veiculo = criarVeiculo(placa, tipoVeiculo);
-
-        //  Converte a data/hora de entrada
-        LocalDateTime horarioEntrada =
-                LocalDateTime.parse(dataHoraEntradaTexto, FORMATTER);
 
         // Cria o ticket
         Ticket ticket = new Ticket(veiculo, horarioEntrada);

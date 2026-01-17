@@ -1,5 +1,6 @@
 package view;
 
+import repository.TicketRepository;
 import view.util.Navegador;
 
 import javax.swing.*;
@@ -8,7 +9,11 @@ import java.awt.*;
 public class TelaHistorico implements ITela{
     private JPanel panel = new JPanel();
     private IDEnum ID = IDEnum.HISTORICO;
+    private TicketRepository ticketRepository;
 
+    public TelaHistorico(TicketRepository ticketRepository){
+        this.ticketRepository = ticketRepository;
+    }
     @Override
     public JPanel getPanel(){
         return this.panel;

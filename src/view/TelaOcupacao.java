@@ -1,5 +1,6 @@
 package view;
 
+import repository.TicketRepository;
 import view.util.Navegador;
 
 import javax.swing.*;
@@ -8,6 +9,11 @@ import java.awt.*;
 public class TelaOcupacao implements ITela{
     private JPanel panel = new JPanel();
     private IDEnum ID = IDEnum.OCUPACAO;
+    private TicketRepository ticketRepository;
+
+    public TelaOcupacao(TicketRepository ticketRepository){
+        this.ticketRepository = ticketRepository;
+    }
 
     @Override
     public JPanel getPanel(){

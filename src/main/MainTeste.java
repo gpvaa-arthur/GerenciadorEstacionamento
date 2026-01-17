@@ -2,7 +2,10 @@ package main;
 
 import repository.TicketRepository;
 import service.EntradaService;
+import service.FormatHorarioService;
 import service.SaidaService;
+
+import java.time.LocalDateTime;
 
 public class MainTeste {
 
@@ -11,18 +14,21 @@ public class MainTeste {
         TicketRepository repository = new TicketRepository();
 
         EntradaService entradaService = new EntradaService(repository);
+        FormatHorarioService horarioService = new FormatHorarioService();
         SaidaService saidaService = new SaidaService(repository);
 
         // ================= CARRO =================
+        LocalDateTime horarioEntrada1 = horarioService.criarHorario(10, 22, 30);
         entradaService.registrarEntrada(
                 "CAR1234",
                 "CARRO",
-                "10/06/2025 22:30"
-        );
+                horarioEntrada1
 
+        );
+        LocalDateTime horarioSaida1 = horarioService.criarHorario(11,1,30);
         double valorCarro = saidaService.registrarSaida(
                 "CAR1234",
-                "11/06/2025 01:00"
+                horarioSaida1
         );
 
         System.out.println(
@@ -30,15 +36,17 @@ public class MainTeste {
         );
 
         // ================= MOTO =================
+        LocalDateTime horarioEntrada2 = horarioService.criarHorario(10, 22, 30);
         entradaService.registrarEntrada(
                 "MOT5678",
                 "MOTO",
-                "10/06/2025 22:30"
+                horarioEntrada2
         );
 
+        LocalDateTime horarioSaida2 = horarioService.criarHorario(11,1,30);
         double valorMoto = saidaService.registrarSaida(
                 "MOT5678",
-                "11/06/2025 01:00"
+                horarioSaida2
         );
 
         System.out.println(
@@ -46,15 +54,16 @@ public class MainTeste {
         );
 
         // ================= ÔNIBUS =================
+        LocalDateTime horarioEntrada3 = horarioService.criarHorario(10, 22, 30);
         entradaService.registrarEntrada(
                 "ONI9999",
                 "ONIBUS",
-                "10/06/2025 22:30"
+                horarioEntrada3
         );
-
+        LocalDateTime horarioSaida3 = horarioService.criarHorario(11,1,30);
         double valorOnibus = saidaService.registrarSaida(
                 "ONI9999",
-                "11/06/2025 01:00"
+                horarioSaida3
         );
 
         System.out.println(

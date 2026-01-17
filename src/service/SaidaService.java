@@ -19,23 +19,21 @@ public class SaidaService {
         this.calculoTarifaService = new CalculoTarifaService();
     }
 
-    public double registrarSaida(String placa, String dataHoraSaidaTexto) {
+    public double registrarSaida(String placa, LocalDateTime horarioSaida) {
 
         //  Busca ticket ativo
         Ticket ticket = repository.getTicketAtivo(placa);
 
         if (ticket == null) {
+            //TODO: Substituir por exceção personalizada
             throw new IllegalArgumentException(
                     "Veículo não encontrado no estacionamento"
             );
         }
 
-        //  Converte horário de saída
-        LocalDateTime horarioSaida =
-                LocalDateTime.parse(dataHoraSaidaTexto, FORMATTER);
-
         //  Valida horário
         if (horarioSaida.isBefore(ticket.getHorarioEntrada())) {
+            //TODO: Substituir por exceção personalizada
             throw new IllegalArgumentException(
                     "Horário de saída inválido"
             );

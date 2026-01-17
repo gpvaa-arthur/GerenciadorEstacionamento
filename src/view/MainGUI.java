@@ -1,5 +1,7 @@
 package view;
 
+import main.Main;
+import repository.TicketRepository;
 import view.util.*;
 
 import javax.swing.*;
@@ -9,7 +11,12 @@ import java.util.List;
 //Classe responsável pela configuração da tela principal
 
 public class MainGUI {
-    public void inicializarGUI() {
+    private TicketRepository ticketRepository;
+
+    public MainGUI(TicketRepository ticketRepository){
+        this.ticketRepository = ticketRepository;
+    }
+    public void configurarGUI() {
         JFrame janela = new JFrame();
         JPanel mainPanel = new JPanel(new GridBagLayout());
         janela.setContentPane(mainPanel);
@@ -36,10 +43,10 @@ public class MainGUI {
         AutenticadorGUI autenticadorGUI = new AutenticadorGUI();
 
         List<ITela> listaTela = List.of(
-                new TelaEntrada(),
-                new TelaSaida(),
-                new TelaOcupacao(),
-                new TelaHistorico()
+                new TelaEntrada(ticketRepository),
+                new TelaSaida(ticketRepository),
+                new TelaOcupacao(ticketRepository),
+                new TelaHistorico(ticketRepository)
         );
 
         for (ITela iTela : listaTela) {
@@ -122,7 +129,7 @@ public class MainGUI {
 
         //-------------- Configurações finais -----------------//
         janela.setTitle("Gerenciador de Estacionamento");
-        janela.setSize(500,400);
+        janela.setSize(550,400);
         janela.setVisible(true);
         janela.setLocationRelativeTo(null);
     }
