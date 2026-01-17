@@ -82,6 +82,6 @@ public abstract class Vaga {
     public abstract String getDescricao();
 
     public int getTotalVagas() {
-        this.totalVagas = totalVagas;
+        return this.totalVagas;
     }
 }
