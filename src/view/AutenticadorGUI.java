@@ -24,6 +24,7 @@ public class AutenticadorGUI {
         if (escolha == 0) { // 0 é o índice do botão "Entrar"
             // if(autenticarSenha(campoSenha) == 1){return 1;}
             // else{return -1;}
+            campoSenha.getPassword();
         }
 
         return 0; // Usuário cancelou
