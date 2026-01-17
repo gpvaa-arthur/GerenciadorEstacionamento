@@ -50,4 +50,15 @@ public class TicketRepository {
     public boolean existeTicketAtivo(String placa) {
         return ticketsAtivos.containsKey(placa);
     }
+
+    // Quantidade de tickets por tipo de veículo
+    public int getQuantidadePorTipo(String tipo) {
+        int contagem = 0;
+        for (Ticket ticket : ticketsAtivos.values()) {
+            if (ticket.getVeiculo().getTipo().equalsIgnoreCase(tipo)) {
+                contagem++;
+            }
+        }
+        return contagem;
+    }
 }

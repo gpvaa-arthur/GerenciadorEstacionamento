@@ -81,4 +81,7 @@ public abstract class Vaga {
     //Retorna o nome do tipo de vaga
     public abstract String getDescricao();
 
+    public int getTotalVagas() {
+        this.totalVagas = totalVagas;
+    }
 }
