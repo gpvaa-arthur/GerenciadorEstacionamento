@@ -34,7 +34,7 @@ public class MainGUI {
         gbc.fill = GridBagConstraints.VERTICAL;
         mainPanel.add(panelCinza, gbc);
 
-        //-------------- Card Layout direito -----------------//
+        //-------------- Configuração CardLayout direito -----------------//
 
         CardLayout cards = new CardLayout();
         JPanel cardsPanel = new JPanel(cards);
@@ -57,7 +57,8 @@ public class MainGUI {
         AuxLayout.setup(gbc, 1,0,1,1, 1.0,1.0);
         mainPanel.add(cardsPanel, gbc);
 
-        //-------- (Panel Cinza). Botão Entrada -----------//
+
+        //-------- (Panel Cinza) Botão Entrada -----------//
 
         AuxLayout.reset(gbc);
         JButton entrada = new JButton("Entrada");
@@ -93,6 +94,7 @@ public class MainGUI {
 
         faturamento.addActionListener(e ->{
             if(!(navegador.getIdAtual().equals(IDEnum.FATURAMENTO))){
+                Toolkit.getDefaultToolkit().beep();
                 int valor = autenticadorGUI.autenticarSenha();
                 if(valor == 1){
                     navegador.setIdAtual(IDEnum.FATURAMENTO);
@@ -118,6 +120,7 @@ public class MainGUI {
 
         historico.addActionListener(e ->{
             if(!(navegador.getIdAtual().equals(IDEnum.HISTORICO))){
+                Toolkit.getDefaultToolkit().beep();
                 int valor = autenticadorGUI.autenticarSenha();
                 if(valor == 1){
                     navegador.setIdAtual(IDEnum.HISTORICO);
@@ -138,7 +141,7 @@ public class MainGUI {
 
         //-------------- Configurações finais -----------------//
         janela.setTitle("Gerenciador de Estacionamento");
-        janela.setSize(550,400);
+        janela.setSize(610,420);
         janela.setVisible(true);
         janela.setLocationRelativeTo(null);
     }

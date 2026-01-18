@@ -7,6 +7,7 @@ import view.util.AuxLayout;
 import view.util.Navegador;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.text.ParseException;
@@ -70,8 +71,10 @@ public class TelaSaida implements ITela{
 
         botaoRegistrar.addActionListener(e -> {
             //TODO: Exceção com campos vazios
-            LocalDateTime horarioSaida = horarioService.criarHorario(getDia(listaSP), getHoras(listaSP), getMinutos(listaSP));
-            saidaService.registrarSaida(textoPlaca.getText(), horarioSaida);
+            if(PagamentoGUI.confirmarPagamento()) {
+                LocalDateTime horarioSaida = horarioService.criarHorario(getDia(listaSP), getHoras(listaSP), getMinutos(listaSP));
+                saidaService.registrarSaida(textoPlaca.getText(), horarioSaida);
+            }
 
         });
         panel.add(botaoRegistrar, gbc);
@@ -151,8 +154,9 @@ public class TelaSaida implements ITela{
     private int getHoras(List<JSpinner> listaSP) {
         return (Integer) listaSP.get(1).getModel().getValue();
     }
-
     private int getMinutos(List<JSpinner> listaSP) {
         return (Integer) listaSP.getLast().getModel().getValue();
     }
+
+
 }
