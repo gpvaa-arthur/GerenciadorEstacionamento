@@ -1,5 +1,7 @@
 package view;
 
+import exceptions.HorarioInvalidoException;
+import exceptions.VeiculoNaoEncontradoException;
 import repository.TicketRepository;
 import service.FormatHorarioService;
 import service.SaidaService;
@@ -72,7 +74,11 @@ public class TelaSaida implements ITela{
         botaoRegistrar.addActionListener(e -> {
             //TODO: Exceção com campos vazios
                 LocalDateTime horarioSaida = horarioService.criarHorario(getDia(listaSP), getHoras(listaSP), getMinutos(listaSP));
+            try {
                 saidaService.registrarSaida(textoPlaca.getText(), horarioSaida);
+            } catch (HorarioInvalidoException | VeiculoNaoEncontradoException ex) {
+                throw new RuntimeException(ex);
+            }
 
         });
         panel.add(botaoRegistrar, gbc);

@@ -1,5 +1,6 @@
 package view;
 
+import exceptions.SenhaIncorretaException;
 import repository.TicketRepository;
 import view.util.*;
 
@@ -91,17 +92,20 @@ public class MainGUI {
         //-------- (Panel Cinza). Botão Faturamento -----------//
         JButton faturamento = new JButton("Faturamento");
 
-
         faturamento.addActionListener(e ->{
             if(!(navegador.getIdAtual().equals(IDEnum.FATURAMENTO))){
-                Toolkit.getDefaultToolkit().beep();
                 int valor = autenticadorGUI.autenticarSenha();
                 if(valor == 1){
                     navegador.setIdAtual(IDEnum.FATURAMENTO);
                     navegador.irPara(IDEnum.FATURAMENTO);
                 }
                 if(valor == -1){
-                    System.out.println("Senha incorreta!");
+                        try {
+                            ExceptionGUI.exceptionGUI("Senha incorreta!");
+                            throw new SenhaIncorretaException("Senha incorreta!");
+                        } catch (SenhaIncorretaException ex) {
+                            throw new RuntimeException(ex);
+                        }
                 }
                 if(valor == 0){
                     System.out.println("Janela fechada");
@@ -116,23 +120,24 @@ public class MainGUI {
         //-------- (Panel Cinza). Botão Histórico -----------//
         JButton historico = new JButton("Histórico");
 
-        //todo: Ativar funcionalidade histórico
-
         historico.addActionListener(e ->{
             if(!(navegador.getIdAtual().equals(IDEnum.HISTORICO))){
-                Toolkit.getDefaultToolkit().beep();
                 int valor = autenticadorGUI.autenticarSenha();
                 if(valor == 1){
                     navegador.setIdAtual(IDEnum.HISTORICO);
                     navegador.irPara(IDEnum.HISTORICO);
                 }
                 if(valor == -1){
-                    System.out.println("Senha incorreta!");
+                    try {
+                        throw new SenhaIncorretaException("Senha incorreta!");
+                    } catch (SenhaIncorretaException ex) {
+                        ExceptionGUI.exceptionGUI("Senha incorreta!");
+                        throw new RuntimeException(ex);
+                    }
                 }
                 if(valor == 0){
                     System.out.println("Janela fechada");
                 }
-
             }
         });
 

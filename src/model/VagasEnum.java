@@ -1,5 +1,7 @@
 package model;
 
+// Classe para determinar o número máximo de vagas
+
 public enum VagasEnum {
     MAX_VAGAS_CARRO(30),
     MAX_VAGAS_MOTO(20),

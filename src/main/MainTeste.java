@@ -1,9 +1,6 @@
 package main;
 
-import exceptions.EstacionamentoLotadoException;
-import exceptions.PlacaInvalidaException;
-import exceptions.TipoVeiculoInvalidoException;
-import exceptions.VeiculoJaEstacionadoException;
+import exceptions.*;
 import repository.TicketRepository;
 import service.EntradaService;
 import service.FormatHorarioService;
@@ -13,7 +10,7 @@ import java.time.LocalDateTime;
 
 public class MainTeste {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws HorarioInvalidoException, VeiculoNaoEncontradoException {
 
         TicketRepository repository = new TicketRepository();
 
@@ -85,13 +82,10 @@ public class MainTeste {
                     "ONIBUS",
                     horarioEntrada3
             );
-        } catch (EstacionamentoLotadoException e) {
-            throw new RuntimeException(e);
-        } catch (VeiculoJaEstacionadoException e) {
-            throw new RuntimeException(e);
-        } catch (TipoVeiculoInvalidoException e) {
-            throw new RuntimeException(e);
-        } catch (PlacaInvalidaException e) {
+        } catch (EstacionamentoLotadoException |
+                 TipoVeiculoInvalidoException |
+                 VeiculoJaEstacionadoException |
+                 PlacaInvalidaException e) {
             throw new RuntimeException(e);
         }
         LocalDateTime horarioSaida3 = horarioService.criarHorario(11,1,30);
