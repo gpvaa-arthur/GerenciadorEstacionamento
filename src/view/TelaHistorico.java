@@ -41,8 +41,8 @@ public class TelaHistorico implements ITela{
 
     // Configuração modelo tabela
         ModelView modelView = new ModelView();
-        modelView.configModelo();
-        DefaultTableModel modelo = modelView.getModelo();
+        modelView.configModelHistorico();
+        DefaultTableModel modelo = modelView.getModeloHistorico();
 
     // Configurações Tabela
         JTable tabela = new JTable(modelo);

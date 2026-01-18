@@ -4,18 +4,13 @@ import javax.swing.*;
 
 public class PagamentoGUI {
     public static boolean confirmarPagamento(double valor) {
-        int resposta = JOptionPane.showConfirmDialog(
+        JOptionPane.showMessageDialog(
                 null,
                 "Total: R$ "+ valor +" - Deseja realizar o pagamento?",
                 "Pagamento",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE);
+                JOptionPane.PLAIN_MESSAGE);
 
-        if (resposta == JOptionPane.YES_OPTION) {
             return true;
-        }
-        else{
-            return false;
-        }
+
     }
 }

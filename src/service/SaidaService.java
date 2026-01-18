@@ -4,13 +4,9 @@ import exceptions.HorarioInvalidoException;
 import exceptions.VeiculoNaoEncontradoException;
 import model.Ticket;
 import repository.TicketRepository;
-import view.AutenticadorGUI;
 import view.ExceptionGUI;
 import view.PagamentoGUI;
-import view.util.ModelView;
 
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -68,7 +64,7 @@ public class SaidaService {
         repository.addTicketFinalizado(placa, ticket);
 
         //Atualiza tabela
-        tabelaService.atualizarTabela(ticket);
+        tabelaService.TabelaHistorico(ticket);
 
         return valor;
     }

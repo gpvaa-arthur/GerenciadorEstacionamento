@@ -9,24 +9,55 @@ public class ModelView {
             DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     //Modelo de tabela para Histórico
-    private static DefaultTableModel modelo;
+    private static DefaultTableModel modeloHistorico;
+    private static DefaultTableModel modeloDia;
+    private static DefaultTableModel modeloMes;
 
-    public void configModelo() {
-        modelo = new DefaultTableModel() {
+
+    public void configModelHistorico() {
+        modeloHistorico = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false; // Nenhuma célula editável
             }
         };
-        modelo.addColumn("Veículo");
-        modelo.addColumn("Placa");
-        modelo.addColumn("Entrada");
-        modelo.addColumn("Saída");
-        modelo.addColumn("Preço");
+        modeloHistorico.addColumn("Veículo");
+        modeloHistorico.addColumn("Placa");
+        modeloHistorico.addColumn("Entrada");
+        modeloHistorico.addColumn("Saída");
+        modeloHistorico.addColumn("Preço");
+    }
+    public void configModelDia(){
+        modeloDia = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Nenhuma célula editável
+            }
+        };
+        modeloDia.addColumn("Data");
+        modeloDia.addColumn("Faturamento Diário");
+    }
+    public void configModelMes(){
+        modeloMes = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Nenhuma célula editável
+            }
+        };
+        modeloMes.addColumn("Mes");
+        modeloMes.addColumn("Faturamento Mensal");
     }
 
-    public static DefaultTableModel getModelo() {
-        return modelo;
+    public static DefaultTableModel getModeloHistorico() {
+        return modeloHistorico;
+    }
+
+    public static DefaultTableModel getModeloDia() {
+        return modeloDia;
+    }
+
+    public static DefaultTableModel getModeloMes() {
+        return modeloMes;
     }
 
     public DateTimeFormatter getFORMATTER() {

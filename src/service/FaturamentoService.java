@@ -4,6 +4,7 @@ import repository.TicketRepository;
 import model.Ticket;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.YearMonth;
 import java.util.Collection;
 
@@ -45,5 +46,12 @@ public class FaturamentoService {
         }
 
         return total;
+    }
+    public double calcularFaturamentoTotal(){
+        double valorTotal = 0.0;
+        for(Ticket t : repository.getTicketsFinalizados()){
+            valorTotal += t.getValorCobrado();
+        }
+        return valorTotal;
     }
 }
