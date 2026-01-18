@@ -10,7 +10,7 @@ public class AutenticadorGUI {
         JPasswordField campoSenha = new JPasswordField();
         String[] botoes = {"Entrar", "Cancelar"};
 
-        // 3. Abrimos o OptionDialog
+        // Abrir OptionDialog
         int escolha = JOptionPane.showOptionDialog(
                 null,
                 campoSenha,                    // O componente de senha vai aqui
@@ -24,9 +24,7 @@ public class AutenticadorGUI {
 
         //todo Adicionar método service para autenticar senha
         if (escolha == 0) { // 0 é o índice do botão "Entrar"
-            System.out.println(campoSenha.getPassword());
             return autenticarSenhaService.autenticarSenha(campoSenha);
-
         }
 
         return 0; // Usuário cancelou

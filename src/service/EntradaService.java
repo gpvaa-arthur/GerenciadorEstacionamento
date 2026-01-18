@@ -14,8 +14,7 @@ public class EntradaService {
 
     private TicketRepository repository;
 
-    private static final DateTimeFormatter FORMATTER =
-            DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
 
     private VagaCarro VagasCarro;
     private VagaMoto VagasMoto;

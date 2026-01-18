@@ -2,7 +2,9 @@ package service;
 
 import model.Ticket;
 import repository.TicketRepository;
+import view.util.ModelView;
 
+import javax.swing.table.DefaultTableModel;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -20,6 +22,8 @@ public class SaidaService {
     }
 
     public double registrarSaida(String placa, LocalDateTime horarioSaida) {
+
+        AtualizarTabelaService tabelaService = new AtualizarTabelaService();
 
         //  Busca ticket ativo
         Ticket ticket = repository.getTicketAtivo(placa);
@@ -54,7 +58,9 @@ public class SaidaService {
         repository.removerTicketAtivo(placa);
         repository.addTicketFinalizado(placa, ticket);
 
-        System.out.println(valor);
+        //Atualiza tabela
+        tabelaService.atualizarTabela(ticket);
+
         return valor;
     }
 }
