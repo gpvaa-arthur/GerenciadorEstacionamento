@@ -37,28 +37,11 @@ public class ModelView {
         modeloDia.addColumn("Data");
         modeloDia.addColumn("Faturamento Diário");
     }
-    public void configModelMes(){
-        modeloMes = new DefaultTableModel() {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false; // Nenhuma célula editável
-            }
-        };
-        modeloMes.addColumn("Mes");
-        modeloMes.addColumn("Faturamento Mensal");
-    }
 
     public static DefaultTableModel getModeloHistorico() {
         return modeloHistorico;
     }
 
-    public static DefaultTableModel getModeloDia() {
-        return modeloDia;
-    }
-
-    public static DefaultTableModel getModeloMes() {
-        return modeloMes;
-    }
 
     public DateTimeFormatter getFORMATTER() {
         return FORMATTER;
