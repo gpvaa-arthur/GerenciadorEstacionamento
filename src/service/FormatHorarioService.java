@@ -4,19 +4,29 @@ import view.util.ModelView;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class FormatHorarioService {
 
-    public LocalDateTime criarHorario(int dia, int horas, int minutos){
-        LocalDateTime horario = LocalDateTime.of(
+    // USADO PELAS TELAS (dia, hora, minuto)
+    public LocalDateTime criarHorario(int dia, int horas, int minutos) {
+        return LocalDateTime.of(
                 LocalDate.now().getYear(),
                 LocalDate.now().getMonth(),
-                dia, horas, minutos
+                dia,
+                horas,
+                minutos
         );
-        return horario;
     }
-    public String formatHorario(LocalDateTime horario){
+
+    // USADO PARA TESTES / MAIN / CASOS FIXOS
+    public LocalDateTime criarHorario(
+            int ano, int mes, int dia, int horas, int minutos
+    ) {
+        return LocalDateTime.of(ano, mes, dia, horas, minutos);
+    }
+
+    // USADO PELA TABELA (VIEW)
+    public String formatHorario(LocalDateTime horario) {
         ModelView modelView = new ModelView();
         return horario.format(modelView.getFORMATTER());
     }
