@@ -25,8 +25,6 @@ public class TicketRepository {
         return ticketsAtivos.get(placa);
     }
 
-
-
     public void removerTicketAtivo(String placa) {
         ticketsAtivos.remove(placa);
     }

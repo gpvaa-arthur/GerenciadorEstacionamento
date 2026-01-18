@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-//Classe responsável pela configuração da tela principal
+//Classe responsável pela configuração da tela principal/injeção de dependências
 
 public class MainGUI {
     private TicketRepository ticketRepository;
@@ -65,7 +65,6 @@ public class MainGUI {
         AuxLayout.setup(gbc, 1,0,1,1, 1.0,1.0);
         gbc.fill = GridBagConstraints.BOTH;
         mainPanel.add(cardsPanel, gbc);
-
 
         //(Panel Cinza) Botão Entrada
 

@@ -49,14 +49,14 @@ public class TelaEntrada implements ITela {
 
         GridBagConstraints gbc = new GridBagConstraints();
 
-        //-------- Configuração  por métodos auxiliares ---------//
+        //Configuração via métodos
 
         configurarMolas(gbc);
         configurarLabels(gbc);
         List<JComboBox> listaCB = configurarComboBox(gbc);
         List<JSpinner> listaSP = configurarSpinners(gbc);
 
-        //--------------- Panel Disponibilidade ------------------//
+        //Panel Disponibilidade
         JPanel panelSuperior = panelDisponibilidade.getPanelDisponibilidade();
 
         AuxLayout.setup(gbc, 1, 0, 3, 1, 0.0, 0.1);
@@ -64,7 +64,7 @@ public class TelaEntrada implements ITela {
         gbc.anchor = GridBagConstraints.CENTER;
         panel.add(panelSuperior, gbc);
 
-        //-----------------  TextField placa  -------------------//
+        // TextField placa
         MaskFormatter mascaraPlaca = null;
         try {
             mascaraPlaca = new MaskFormatter("AAAAAAA");
@@ -77,7 +77,7 @@ public class TelaEntrada implements ITela {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel.add(textoPlaca, gbc);
 
-        //-----------------  Botão registrar -------------------//
+        // Botão registrar
         JButton botaoRegistrar = new JButton("REGISTRAR ENTRADA");
         AuxLayout.reset(gbc);
         AuxLayout.setup(gbc, 1, 6, 3, 1, 0.0, 0.0);
@@ -110,19 +110,19 @@ public class TelaEntrada implements ITela {
 
     private void configurarMolas(GridBagConstraints gbc) {
 
-        //----------------- Mola Superior -------------------//
+        // Mola Superior
         AuxLayout.setup(gbc, 0, 1, 1, 1, 0.5, 0.2);
         panel.add(Box.createGlue(), gbc);
 
-        //----------------- Mola esquerda -------------------//
+        // Mola esquerda
         AuxLayout.setup(gbc, 0, 2, 1, 1, 0.5, 0.0);
         panel.add(Box.createGlue(), gbc);
 
-        //-----------------  Mola direita -------------------//
+        // Mola direita
         AuxLayout.setup(gbc, 4, 1, 1, 1, 0.5, 0.0);
         panel.add(Box.createGlue(), gbc);
 
-        //-----------------  Mola inferior -------------------//
+        // Mola inferior
         AuxLayout.setup(gbc, 1, 7, 1, 1, 0.0, 0.7);
         panel.add(Box.createGlue(), gbc);
 
@@ -149,7 +149,7 @@ public class TelaEntrada implements ITela {
 
     private List<JComboBox> configurarComboBox(GridBagConstraints gbc) {
 
-        //-----------------  comboBox tipo  -------------------//
+        // ComboBox tipo
         JComboBox<String> boxTipo = new JComboBox<>();
         boxTipo.setPreferredSize(new Dimension(120, boxTipo.getPreferredSize().height));
 
@@ -174,7 +174,7 @@ public class TelaEntrada implements ITela {
         gbc.insets = new Insets(8,12,0,0);
         panel.add(subpanelSpinners, gbc);
 
-        //----------- Configuração spinner dia -----------//
+        // Configuração spinner dia
         SpinnerNumberModel modelDia = new SpinnerNumberModel(1, 1, 30, 1);
         JSpinner spinnerDia = new JSpinner(modelDia);
         spinnerDia.setPreferredSize(new Dimension(40, spinnerDia.getPreferredSize().height));
@@ -182,7 +182,7 @@ public class TelaEntrada implements ITela {
         subpanelSpinners.add(spinnerDia);
         subpanelSpinners.add(new JLabel("dia"));
 
-        //----------- Configuração spinner hora -----------//
+        // Configuração spinner hora
         SpinnerNumberModel modelHora = new SpinnerNumberModel(0, 0, 23, 1);
         JSpinner spinnerHora = new JSpinner(modelHora);
         spinnerHora.setPreferredSize(new Dimension(40, spinnerHora.getPreferredSize().height));
@@ -190,7 +190,7 @@ public class TelaEntrada implements ITela {
         subpanelSpinners.add(spinnerHora);
         subpanelSpinners.add(new JLabel("h"));
 
-        //----------- Configuração spinner minutos -----------//
+        //Configuração spinner minutos
         SpinnerNumberModel modelMinutos = new SpinnerNumberModel(0, 0, 59, 1);
         JSpinner spinnerMinutos = new JSpinner(modelMinutos);
         spinnerMinutos.setPreferredSize(new Dimension(40, spinnerHora.getPreferredSize().height));

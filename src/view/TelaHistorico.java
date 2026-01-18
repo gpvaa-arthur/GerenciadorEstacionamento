@@ -33,17 +33,18 @@ public class TelaHistorico implements ITela{
         GridBagConstraints gbc = new GridBagConstraints();
         panel.setLayout(new GridBagLayout());
 
-    //----------------- Label -------------//
+    // Label
         JLabel labelHistorico = new JLabel("Histórico - Tickets Finalizados");
         AuxLayout.setup(gbc, 0,0,1,1,0.0,0.0);
         gbc.insets = new Insets(5, 0, 5, 0);
         panel.add(labelHistorico, gbc);
-    //----------------- Configuração modelo tabela -------------//
+
+    // Configuração modelo tabela
         ModelView modelView = new ModelView();
         modelView.configModelo();
         DefaultTableModel modelo = modelView.getModelo();
 
-    //----------------- Configurações Tabela -------------//
+    // Configurações Tabela
         JTable tabela = new JTable(modelo);
         tabela.getTableHeader().setReorderingAllowed(false);
         tabela.getTableHeader().setResizingAllowed(false);

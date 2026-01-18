@@ -36,6 +36,5 @@ public class TelaFaturamento implements ITela{
 
         panel.add(new JButton("VERIFICAR FATURAMENTO"),gbc);
 
-
     }
 }
