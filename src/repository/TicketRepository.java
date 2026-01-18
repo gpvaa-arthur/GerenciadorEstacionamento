@@ -25,12 +25,6 @@ public class TicketRepository {
         return ticketsAtivos.get(placa);
     }
 
-    //TODO: Adicionar metodo que conta o numero de motos ativos
-
-    //TODO: Adicionar metodo que conta o numero de carros ativos
-
-    //TODO: Adicionar metodo que conta o numero de onibus ativos
-
     public void removerTicketAtivo(String placa) {
         ticketsAtivos.remove(placa);
     }

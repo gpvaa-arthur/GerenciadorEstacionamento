@@ -16,7 +16,7 @@ public class AtualizarTabelaService {
 
         modelo.addRow(new Object[]{
                 ticket.getVeiculo().getTipo(),
-                ticket.getVeiculo().getPlaca(),
+                ticket.getVeiculo().getPlaca().toUpperCase(),
                 horarioService.formatHorario(ticket.getHorarioEntrada()),
                 horarioService.formatHorario(ticket.getHorarioSaida()),
                 ("R$ " + ticket.getValorCobrado())});

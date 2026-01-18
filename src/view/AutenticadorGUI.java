@@ -13,20 +13,19 @@ public class AutenticadorGUI {
         // Abrir OptionDialog
         int escolha = JOptionPane.showOptionDialog(
                 null,
-                campoSenha,                    // O componente de senha vai aqui
-                "Admin",       // Título
-                JOptionPane.NO_OPTION,         // Não usamos as opções padrão
-                JOptionPane.PLAIN_MESSAGE,     // Sem ícone de alerta
-                null,                          // Sem ícone customizado
-                botoes,                        // Nossos botões "Entrar" e "Cancelar"
-                botoes[0]                      // Foco inicial no "Entrar"
+                campoSenha,
+                "Admin",
+                JOptionPane.NO_OPTION,
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                botoes,
+                botoes[0]
         );
 
-        //todo Adicionar método service para autenticar senha
-        if (escolha == 0) { // 0 é o índice do botão "Entrar"
+        if (escolha == 0) {
             return autenticarSenhaService.autenticarSenha(campoSenha);
         }
 
-        return 0; // Usuário cancelou
+        return 0; // Usuário clicou em cancelar
     }
 }

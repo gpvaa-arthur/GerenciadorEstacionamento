@@ -9,6 +9,5 @@ public class Main{
          MainGUI mainGUI = new MainGUI(ticketRepository);
          mainGUI.configurarGUI();
 
-
     }
 }

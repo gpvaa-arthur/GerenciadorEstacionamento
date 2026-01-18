@@ -1,6 +1,7 @@
 package view;
 
 import repository.TicketRepository;
+import view.util.AuxLayout;
 import view.util.Navegador;
 
 import javax.swing.*;
@@ -29,9 +30,11 @@ public class TelaFaturamento implements ITela{
     public void configurar(Navegador nav){
 
         GridBagConstraints gbc = new GridBagConstraints();
-        panel.setLayout(new GridBagLayout());
-        panel.add(new JButton("VERIFICAR FATURAMENTO"));
 
+        panel.setLayout(new GridBagLayout());
+        AuxLayout.setup(gbc, 0,0 ,1,1,1.0,1.0);
+
+        panel.add(new JButton("VERIFICAR FATURAMENTO"),gbc);
 
     }
 }

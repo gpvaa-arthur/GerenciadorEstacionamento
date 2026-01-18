@@ -1,5 +1,6 @@
 package view;
 
+import exceptions.SenhaIncorretaException;
 import repository.TicketRepository;
 import view.util.*;
 
@@ -7,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-//Classe responsável pela configuração da tela principal
+//Classe responsável pela configuração da tela principal/injeção de dependências
 
 public class MainGUI {
     private TicketRepository ticketRepository;
@@ -16,34 +17,41 @@ public class MainGUI {
         this.ticketRepository = ticketRepository;
     }
     public void configurarGUI() {
+
+        // Configurações iniciais
         JFrame janela = new JFrame();
         JPanel mainPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+
         janela.setContentPane(mainPanel);
         janela.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+        //Classes auxiliares/Dependência
+        AutenticadorGUI autenticadorGUI = new AutenticadorGUI();
 
-        GridBagConstraints gbc = new GridBagConstraints();
+        PanelDisponibilidade panelDisponibilidade = new PanelDisponibilidade();
+        panelDisponibilidade.criarPainelDisponibilidade();
 
-        //-------------- Painel cinza esquerdo -----------------//
+        // Painel cinza esquerdo
         JPanel panelCinza = new JPanel(new GridBagLayout());
         panelCinza.setMinimumSize(new Dimension(150, 0));
-        panelCinza.setPreferredSize(new Dimension(150, 300));
+        panelCinza.setPreferredSize(new Dimension(150, 0));
         panelCinza.setBackground(new Color(200,200,200));
 
         AuxLayout.setup(gbc, 0,0,1,1,0.0,0.0);
         gbc.fill = GridBagConstraints.VERTICAL;
         mainPanel.add(panelCinza, gbc);
 
-        //-------------- Configuração CardLayout direito -----------------//
+        // Configuração CardLayout direito
 
         CardLayout cards = new CardLayout();
         JPanel cardsPanel = new JPanel(cards);
         Navegador navegador = new Navegador(cards, cardsPanel);
-        AutenticadorGUI autenticadorGUI = new AutenticadorGUI();
+
 
         List<ITela> listaTela = List.of(
-                new TelaEntrada(ticketRepository),
-                new TelaSaida(ticketRepository),
+                new TelaEntrada(ticketRepository, panelDisponibilidade),
+                new TelaSaida(ticketRepository, panelDisponibilidade),
                 new TelaFaturamento(ticketRepository),
                 new TelaHistorico(ticketRepository)
         );
@@ -55,10 +63,10 @@ public class MainGUI {
 
         AuxLayout.reset(gbc);
         AuxLayout.setup(gbc, 1,0,1,1, 1.0,1.0);
+        gbc.fill = GridBagConstraints.BOTH;
         mainPanel.add(cardsPanel, gbc);
 
-
-        //-------- (Panel Cinza) Botão Entrada -----------//
+        //(Panel Cinza) Botão Entrada
 
         AuxLayout.reset(gbc);
         JButton entrada = new JButton("Entrada");
@@ -74,7 +82,7 @@ public class MainGUI {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panelCinza.add(entrada, gbc);
 
-        //-------- (Panel Cinza). Botão Saida -----------//
+        //(Panel Cinza). Botão Saida
         JButton saida = new JButton("Saida");
 
         saida.addActionListener(e ->{
@@ -88,20 +96,23 @@ public class MainGUI {
         gbc.insets = new Insets(10,0,0,0);
         panelCinza.add(saida, gbc);
 
-        //-------- (Panel Cinza). Botão Faturamento -----------//
+        //(Panel Cinza). Botão Faturamento
         JButton faturamento = new JButton("Faturamento");
-
 
         faturamento.addActionListener(e ->{
             if(!(navegador.getIdAtual().equals(IDEnum.FATURAMENTO))){
-                Toolkit.getDefaultToolkit().beep();
                 int valor = autenticadorGUI.autenticarSenha();
                 if(valor == 1){
                     navegador.setIdAtual(IDEnum.FATURAMENTO);
                     navegador.irPara(IDEnum.FATURAMENTO);
                 }
                 if(valor == -1){
-                    System.out.println("Senha incorreta!");
+                        try {
+                            ExceptionGUI.exceptionGUI("Senha incorreta!");
+                            throw new SenhaIncorretaException("Senha incorreta!");
+                        } catch (SenhaIncorretaException ex) {
+                            throw new RuntimeException(ex);
+                        }
                 }
                 if(valor == 0){
                     System.out.println("Janela fechada");
@@ -113,33 +124,34 @@ public class MainGUI {
         AuxLayout.setup(gbc, 0,2,1,1,0.0,0.0);
         panelCinza.add(faturamento, gbc);
 
-        //-------- (Panel Cinza). Botão Histórico -----------//
+        // (Panel Cinza). Botão Histórico
         JButton historico = new JButton("Histórico");
-
-        //todo: Ativar funcionalidade histórico
 
         historico.addActionListener(e ->{
             if(!(navegador.getIdAtual().equals(IDEnum.HISTORICO))){
-                Toolkit.getDefaultToolkit().beep();
                 int valor = autenticadorGUI.autenticarSenha();
                 if(valor == 1){
                     navegador.setIdAtual(IDEnum.HISTORICO);
                     navegador.irPara(IDEnum.HISTORICO);
                 }
                 if(valor == -1){
-                    System.out.println("Senha incorreta!");
+                    try {
+                        throw new SenhaIncorretaException("Senha incorreta!");
+                    } catch (SenhaIncorretaException ex) {
+                        ExceptionGUI.exceptionGUI("Senha incorreta!");
+                        throw new RuntimeException(ex);
+                    }
                 }
                 if(valor == 0){
                     System.out.println("Janela fechada");
                 }
-
             }
         });
 
         AuxLayout.setup(gbc, 0,3,1,1,0.0,0.0);
         panelCinza.add(historico, gbc);
 
-        //-------------- Configurações finais -----------------//
+        //Configurações finais
         janela.setTitle("Gerenciador de Estacionamento");
         janela.setSize(610,420);
         janela.setVisible(true);
