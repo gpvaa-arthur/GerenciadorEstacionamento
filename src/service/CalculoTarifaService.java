@@ -1,5 +1,6 @@
 package service;
 
+import exceptions.HorarioInvalidoException;
 import model.Veiculo;
 
 import java.time.Duration;
@@ -11,10 +12,10 @@ public class CalculoTarifaService {
             Veiculo veiculo,
             LocalDateTime entrada,
             LocalDateTime saida
-    ) {
+    ) throws HorarioInvalidoException {
 
         if (saida.isBefore(entrada)) {
-            throw new IllegalArgumentException(
+            throw new HorarioInvalidoException(
                     "Horário de saída não pode ser anterior ao de entrada"
             );
         }

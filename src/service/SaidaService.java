@@ -1,5 +1,7 @@
 package service;
 
+import exceptions.HorarioInvalidoException;
+import exceptions.VeiculoNaoEncontradoException;
 import model.Ticket;
 import repository.TicketRepository;
 import view.AutenticadorGUI;
@@ -23,7 +25,7 @@ public class SaidaService {
         this.calculoTarifaService = new CalculoTarifaService();
     }
 
-    public double registrarSaida(String placa, LocalDateTime horarioSaida) {
+    public double registrarSaida(String placa, LocalDateTime horarioSaida) throws VeiculoNaoEncontradoException, HorarioInvalidoException {
 
         //Service e View
         AtualizarTabelaService tabelaService = new AtualizarTabelaService();
@@ -31,18 +33,16 @@ public class SaidaService {
         //  Busca ticket ativo
         Ticket ticket = repository.getTicketAtivo(placa);
 
+        // Verifica se o veículo existe no estacionamento
         if (ticket == null) {
-            //TODO: Substituir por exceção personalizada
-            throw new IllegalArgumentException(
-                    "Veículo não encontrado no estacionamento"
-            );
+            throw new VeiculoNaoEncontradoException(placa);
         }
 
         //  Valida horário
         if (horarioSaida.isBefore(ticket.getHorarioEntrada())) {
             //TODO: Substituir por exceção personalizada
-            throw new IllegalArgumentException(
-                    "Horário de saída inválido"
+            throw new HorarioInvalidoException(
+                    "Horário de saída inválido: o Horário de saída não pode ser anterior ao de entrada"
             );
         }
 

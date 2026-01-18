@@ -14,12 +14,6 @@ public class EntradaService {
 
     private TicketRepository repository;
 
-
-
-    private VagaCarro VagasCarro;
-    private VagaMoto VagasMoto;
-    private VagaOnibus VagasOnibus;
-
     private static final String PADRAO_PLACA_MERCOSUL = "^[A-Z]{3}[0-9][A-Z][0-9]{2}$";
 
 
