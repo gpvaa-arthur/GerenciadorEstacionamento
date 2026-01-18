@@ -40,7 +40,6 @@ public class SaidaService {
 
         //  Valida horário
         if (horarioSaida.isBefore(ticket.getHorarioEntrada())) {
-            //TODO: Substituir por exceção personalizada
             throw new HorarioInvalidoException(
                     "Horário de saída inválido: o Horário de saída não pode ser anterior ao de entrada"
             );
