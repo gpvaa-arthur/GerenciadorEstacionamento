@@ -1,7 +1,7 @@
 package repository;
 
 import model.Ticket;
-
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,4 +50,9 @@ public class TicketRepository {
     public boolean existeTicketAtivo(String placa) {
         return ticketsAtivos.containsKey(placa);
     }
+
+    public Collection<Ticket> getTicketsFinalizados() {
+        return ticketsFinalizados.values();
+    }
+
 }

@@ -4,8 +4,12 @@ import repository.TicketRepository;
 import service.EntradaService;
 import service.FormatHorarioService;
 import service.SaidaService;
+import service.FaturamentoService;
 
 import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.YearMonth;
+
 
 public class MainTeste {
 
@@ -69,5 +73,14 @@ public class MainTeste {
         System.out.println(
                 "Valor a pagar pelo ÔNIBUS (placa ONI9999): R$ " + valorOnibus
         );
+
+        FaturamentoService faturamento = new FaturamentoService(repository);
+
+        double hoje = faturamento.calcularFaturamentoDiario(LocalDate.of(2025, 6, 11));
+        System.out.println("Faturamento do dia: R$ " + hoje);
+
+        double mes = faturamento.calcularFaturamentoMensal(YearMonth.of(2025, 6));
+        System.out.println("Faturamento do mês: R$ " + mes);
+
     }
 }
