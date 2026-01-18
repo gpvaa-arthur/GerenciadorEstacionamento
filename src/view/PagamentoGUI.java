@@ -3,10 +3,10 @@ package view;
 import javax.swing.*;
 
 public class PagamentoGUI {
-    public static boolean confirmarPagamento() {
+    public static boolean confirmarPagamento(double valor) {
         int resposta = JOptionPane.showConfirmDialog(
                 null,
-                "Deseja realizar o pagamento?",
+                "Total: R$ "+ valor +" - Deseja realizar o pagamento?",
                 "Pagamento",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE);

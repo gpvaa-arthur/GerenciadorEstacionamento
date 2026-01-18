@@ -71,10 +71,8 @@ public class TelaSaida implements ITela{
 
         botaoRegistrar.addActionListener(e -> {
             //TODO: Exceção com campos vazios
-            if(PagamentoGUI.confirmarPagamento()) {
                 LocalDateTime horarioSaida = horarioService.criarHorario(getDia(listaSP), getHoras(listaSP), getMinutos(listaSP));
                 saidaService.registrarSaida(textoPlaca.getText(), horarioSaida);
-            }
 
         });
         panel.add(botaoRegistrar, gbc);

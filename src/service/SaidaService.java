@@ -2,6 +2,8 @@ package service;
 
 import model.Ticket;
 import repository.TicketRepository;
+import view.AutenticadorGUI;
+import view.PagamentoGUI;
 import view.util.ModelView;
 
 import javax.swing.table.DefaultTableModel;
@@ -23,6 +25,7 @@ public class SaidaService {
 
     public double registrarSaida(String placa, LocalDateTime horarioSaida) {
 
+        //Service e View
         AtualizarTabelaService tabelaService = new AtualizarTabelaService();
 
         //  Busca ticket ativo
@@ -49,6 +52,8 @@ public class SaidaService {
                 ticket.getHorarioEntrada(),
                 horarioSaida
         );
+        // Janela de confirmação
+        PagamentoGUI.confirmarPagamento(valor);
 
         //  Fecha o ticket
         ticket.setHorarioSaida(horarioSaida);
