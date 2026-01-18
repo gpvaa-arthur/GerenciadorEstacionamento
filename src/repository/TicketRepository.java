@@ -2,6 +2,7 @@ package repository;
 
 import model.Ticket;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +17,6 @@ public class TicketRepository {
     }
 
     // TICKETS ATIVOS
-
     public void addTicketAtivo(String placa, Ticket ticket) {
         ticketsAtivos.put(placa, ticket);
     }
@@ -30,7 +30,6 @@ public class TicketRepository {
     }
 
     // TICKETS FINALIZADOS
-
     public void addTicketFinalizado(String placa, Ticket ticket) {
         ticketsFinalizados.put(placa, ticket);
     }
@@ -39,13 +38,16 @@ public class TicketRepository {
         return ticketsFinalizados.get(placa);
     }
 
-    // UTILITÁRIOS
+    // 👇 ESTE É O MÉTODO QUE FALTAVA
+    public Collection<Ticket> getTicketsFinalizados() {
+        return ticketsFinalizados.values();
+    }
 
+    // UTILITÁRIOS
     public boolean existeTicketAtivo(String placa) {
         return ticketsAtivos.containsKey(placa);
     }
 
-    // Quantidade de tickets por tipo de veículo
     public int getQuantidadePorTipo(String tipo) {
         int contagem = 0;
         for (Ticket ticket : ticketsAtivos.values()) {

@@ -1,101 +1,59 @@
 package main;
 
-import exceptions.*;
+import model.*;
 import repository.TicketRepository;
-import service.EntradaService;
-import service.FormatHorarioService;
-import service.SaidaService;
+import service.*;
 
+import exceptions.HorarioInvalidoException;
+import exceptions.VeiculoNaoEncontradoException;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class MainTeste {
 
-    public static void main(String[] args) throws HorarioInvalidoException, VeiculoNaoEncontradoException {
+    public static void main(String[] args)
+            throws HorarioInvalidoException, VeiculoNaoEncontradoException {
 
-        TicketRepository repository = new TicketRepository();
 
-        EntradaService entradaService = new EntradaService(repository);
-        FormatHorarioService horarioService = new FormatHorarioService();
-        SaidaService saidaService = new SaidaService(repository);
+        TicketRepository repo = new TicketRepository();
 
-        // ================= CARRO =================
-        LocalDateTime horarioEntrada1 = horarioService.criarHorario(10, 22, 30);
-        try {
-            entradaService.registrarEntrada(
-                    "CAR1234",
-                    "CARRO",
-                    horarioEntrada1
+        // VEÍCULOS
+        Veiculo carro = new Carro("CAR1234");
+        Veiculo moto = new Moto("MOT5678");
+        Veiculo onibus = new Onibus("ONI9999");
 
-            );
-        } catch (EstacionamentoLotadoException e) {
-            throw new RuntimeException(e);
-        } catch (VeiculoJaEstacionadoException e) {
-            throw new RuntimeException(e);
-        } catch (TipoVeiculoInvalidoException e) {
-            throw new RuntimeException(e);
-        } catch (PlacaInvalidaException e) {
-            throw new RuntimeException(e);
-        }
-        LocalDateTime horarioSaida1 = horarioService.criarHorario(11,1,30);
-        double valorCarro = saidaService.registrarSaida(
-                "CAR1234",
-                horarioSaida1
-        );
 
-        System.out.println(
-                "Valor a pagar pelo CARRO (placa CAR1234): R$ " + valorCarro
-        );
+        // HORÁRIOS EXPLÍCITOS (AQUI É O PONTO-CHAVE)
+        LocalDateTime e1 = LocalDateTime.of(2025, 1, 18, 8, 0);
+        LocalDateTime s1 = LocalDateTime.of(2025, 1, 18, 10, 0);
 
-        // ================= MOTO =================
-        LocalDateTime horarioEntrada2 = horarioService.criarHorario(10, 22, 30);
-        try {
-            entradaService.registrarEntrada(
-                    "MOT5678",
-                    "MOTO",
-                    horarioEntrada2
-            );
-        } catch (EstacionamentoLotadoException e) {
-            throw new RuntimeException(e);
-        } catch (VeiculoJaEstacionadoException e) {
-            throw new RuntimeException(e);
-        } catch (TipoVeiculoInvalidoException e) {
-            throw new RuntimeException(e);
-        } catch (PlacaInvalidaException e) {
-            throw new RuntimeException(e);
-        }
+        LocalDateTime e2 = LocalDateTime.of(2025, 1, 18, 9, 0);
+        LocalDateTime s2 = LocalDateTime.of(2025, 1, 18, 10, 30);
 
-        LocalDateTime horarioSaida2 = horarioService.criarHorario(11,1,30);
-        double valorMoto = saidaService.registrarSaida(
-                "MOT5678",
-                horarioSaida2
-        );
+        LocalDateTime e3 = LocalDateTime.of(2025, 1, 18, 7, 0);
+        LocalDateTime s3 = LocalDateTime.of(2025, 1, 18, 12, 0);
 
-        System.out.println(
-                "Valor a pagar pela MOTO (placa MOT5678): R$ " + valorMoto
-        );
+        // ENTRADAS
+        repo.addTicketAtivo("CAR1234", new Ticket(carro, e1));
+        repo.addTicketAtivo("MOT5678", new Ticket(moto, e2));
+        repo.addTicketAtivo("ONI9999", new Ticket(onibus, e3));
 
-        // ================= ÔNIBUS =================
-        LocalDateTime horarioEntrada3 = horarioService.criarHorario(10, 22, 30);
-        try {
-            entradaService.registrarEntrada(
-                    "ONI9999",
-                    "ONIBUS",
-                    horarioEntrada3
-            );
-        } catch (EstacionamentoLotadoException |
-                 TipoVeiculoInvalidoException |
-                 VeiculoJaEstacionadoException |
-                 PlacaInvalidaException e) {
-            throw new RuntimeException(e);
-        }
-        LocalDateTime horarioSaida3 = horarioService.criarHorario(11,1,30);
-        double valorOnibus = saidaService.registrarSaida(
-                "ONI9999",
-                horarioSaida3
-        );
+        SaidaService saida = new SaidaService(repo);
 
-        System.out.println(
-                "Valor a pagar pelo ÔNIBUS (placa ONI9999): R$ " + valorOnibus
-        );
+        // SAÍDAS
+        saida.registrarSaida("CAR1234", s1);
+        saida.registrarSaida("MOT5678", s2);
+        saida.registrarSaida("ONI9999", s3);
+
+        // FATURAMENTO
+        FaturamentoService faturamento = new FaturamentoService(repo);
+
+        LocalDate dia = LocalDate.of(2025, 1, 18);
+
+        double total = faturamento.calcularFaturamentoDiario(dia);
+
+        System.out.println("FATURAMENTO DO DIA: R$ " + total);
+        System.out.println("FINALIZADOS: " + repo.getTicketsFinalizados().size());
     }
 }
