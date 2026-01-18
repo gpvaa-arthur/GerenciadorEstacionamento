@@ -20,9 +20,12 @@ public class TelaSaida implements ITela{
     private JPanel panel = new JPanel();
     private IDEnum ID = IDEnum.SAIDA;
     private TicketRepository ticketRepository;
+    private PanelDisponibilidade panelDisponibilidade;
 
-    public TelaSaida(TicketRepository ticketRepository){
+    public TelaSaida(TicketRepository ticketRepository, PanelDisponibilidade panelDisponiblidade){
         this.ticketRepository = ticketRepository;
+        this.panelDisponibilidade = panelDisponiblidade;
+
     }
 
     @Override
@@ -76,6 +79,8 @@ public class TelaSaida implements ITela{
                 LocalDateTime horarioSaida = horarioService.criarHorario(getDia(listaSP), getHoras(listaSP), getMinutos(listaSP));
             try {
                 saidaService.registrarSaida(textoPlaca.getText(), horarioSaida);
+                panelDisponibilidade.saidaPorTipo(ticketRepository.getTicketFinalizado(textoPlaca.getText()).getVeiculo().getTipo());
+
             } catch (HorarioInvalidoException | VeiculoNaoEncontradoException ex) {
                 throw new RuntimeException(ex);
             }

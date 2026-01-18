@@ -36,6 +36,7 @@ public class TelaHistorico implements ITela{
     //----------------- Label -------------//
         JLabel labelHistorico = new JLabel("Histórico - Tickets Finalizados");
         AuxLayout.setup(gbc, 0,0,1,1,0.0,0.0);
+        gbc.insets = new Insets(5, 0, 5, 0);
         panel.add(labelHistorico, gbc);
     //----------------- Configuração modelo tabela -------------//
         ModelView modelView = new ModelView();
@@ -57,6 +58,7 @@ public class TelaHistorico implements ITela{
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
         AuxLayout.setup(gbc,0,1,1,1,1.0,1.0);
+        gbc.insets = new Insets(0, 8, 5, 8);
         gbc.fill = GridBagConstraints.BOTH;
         panel.add(scrollPane, gbc);
     }
