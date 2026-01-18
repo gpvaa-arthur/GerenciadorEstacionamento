@@ -23,11 +23,8 @@ public class EntradaService {
     private static final String PADRAO_PLACA_MERCOSUL = "^[A-Z]{3}[0-9][A-Z][0-9]{2}$";
 
 
-    public EntradaService(TicketRepository repository, VagaCarro VagasCarro, VagaMoto VagasMoto,  VagaOnibus VagasOnibus) {
+    public EntradaService(TicketRepository repository) {
         this.repository = repository;
-        this.VagasCarro = VagasCarro;
-        this.VagasMoto = VagasMoto;
-        this.VagasOnibus = VagasOnibus;
     }
 
     public void registrarEntrada(
@@ -43,11 +40,11 @@ public class EntradaService {
 
         int ocupados = repository.getQuantidadePorTipo(tipoVeiculo);
         // Verifica se tem vaga para o tipo de veículo
-        if (tipoVeiculo.equalsIgnoreCase("CARRO") && ocupados >= VagasCarro.getTotalVagas()) {
+        if (tipoVeiculo.equalsIgnoreCase("CARRO") && ocupados >= VagasEnum.MAX_VAGAS_CARRO.getVagasMaximas()) {
             throw new EstacionamentoLotadoException();
-        } else if (tipoVeiculo.equalsIgnoreCase("MOTO") && ocupados >= VagasMoto.getTotalVagas()) {
+        } else if (tipoVeiculo.equalsIgnoreCase("MOTO") && ocupados >= VagasEnum.MAX_VAGAS_MOTO.getVagasMaximas()) {
             throw new EstacionamentoLotadoException();
-        } else if (tipoVeiculo.equalsIgnoreCase("ONIBUS") && ocupados >= VagasOnibus.getTotalVagas()) {
+        } else if (tipoVeiculo.equalsIgnoreCase("ONIBUS") && ocupados >= VagasEnum.MAX_VAGAS_ONIBUS.getVagasMaximas()) {
             throw new EstacionamentoLotadoException();
         }
 

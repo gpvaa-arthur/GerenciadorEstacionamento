@@ -1,5 +1,9 @@
 package view;
 
+import exceptions.EstacionamentoLotadoException;
+import exceptions.PlacaInvalidaException;
+import exceptions.TipoVeiculoInvalidoException;
+import exceptions.VeiculoJaEstacionadoException;
 import model.TiposEnum;
 import repository.TicketRepository;
 import service.EntradaService;
@@ -68,7 +72,17 @@ public class TelaEntrada implements ITela {
 
         botaoRegistrar.addActionListener(e -> {
             LocalDateTime horarioEntrada = horarioService.criarHorario(getDia(listaSP), getHoras(listaSP), getMinutos(listaSP));
-            entradaService.registrarEntrada(textoPlaca.getText(),getTipo(listaCB), horarioEntrada);
+            try {
+                entradaService.registrarEntrada(textoPlaca.getText(),getTipo(listaCB), horarioEntrada);
+            } catch (EstacionamentoLotadoException ex) {
+                throw new RuntimeException(ex);
+            } catch (VeiculoJaEstacionadoException ex) {
+                throw new RuntimeException(ex);
+            } catch (TipoVeiculoInvalidoException ex) {
+                throw new RuntimeException(ex);
+            } catch (PlacaInvalidaException ex) {
+                throw new RuntimeException(ex);
+            }
 
             System.out.println(getTipo(listaCB));
             System.out.println(getDia(listaSP));

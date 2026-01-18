@@ -1,5 +1,9 @@
 package main;
 
+import exceptions.EstacionamentoLotadoException;
+import exceptions.PlacaInvalidaException;
+import exceptions.TipoVeiculoInvalidoException;
+import exceptions.VeiculoJaEstacionadoException;
 import repository.TicketRepository;
 import service.EntradaService;
 import service.FormatHorarioService;
@@ -19,12 +23,22 @@ public class MainTeste {
 
         // ================= CARRO =================
         LocalDateTime horarioEntrada1 = horarioService.criarHorario(10, 22, 30);
-        entradaService.registrarEntrada(
-                "CAR1234",
-                "CARRO",
-                horarioEntrada1
+        try {
+            entradaService.registrarEntrada(
+                    "CAR1234",
+                    "CARRO",
+                    horarioEntrada1
 
-        );
+            );
+        } catch (EstacionamentoLotadoException e) {
+            throw new RuntimeException(e);
+        } catch (VeiculoJaEstacionadoException e) {
+            throw new RuntimeException(e);
+        } catch (TipoVeiculoInvalidoException e) {
+            throw new RuntimeException(e);
+        } catch (PlacaInvalidaException e) {
+            throw new RuntimeException(e);
+        }
         LocalDateTime horarioSaida1 = horarioService.criarHorario(11,1,30);
         double valorCarro = saidaService.registrarSaida(
                 "CAR1234",
@@ -37,11 +51,21 @@ public class MainTeste {
 
         // ================= MOTO =================
         LocalDateTime horarioEntrada2 = horarioService.criarHorario(10, 22, 30);
-        entradaService.registrarEntrada(
-                "MOT5678",
-                "MOTO",
-                horarioEntrada2
-        );
+        try {
+            entradaService.registrarEntrada(
+                    "MOT5678",
+                    "MOTO",
+                    horarioEntrada2
+            );
+        } catch (EstacionamentoLotadoException e) {
+            throw new RuntimeException(e);
+        } catch (VeiculoJaEstacionadoException e) {
+            throw new RuntimeException(e);
+        } catch (TipoVeiculoInvalidoException e) {
+            throw new RuntimeException(e);
+        } catch (PlacaInvalidaException e) {
+            throw new RuntimeException(e);
+        }
 
         LocalDateTime horarioSaida2 = horarioService.criarHorario(11,1,30);
         double valorMoto = saidaService.registrarSaida(
@@ -55,11 +79,21 @@ public class MainTeste {
 
         // ================= ÔNIBUS =================
         LocalDateTime horarioEntrada3 = horarioService.criarHorario(10, 22, 30);
-        entradaService.registrarEntrada(
-                "ONI9999",
-                "ONIBUS",
-                horarioEntrada3
-        );
+        try {
+            entradaService.registrarEntrada(
+                    "ONI9999",
+                    "ONIBUS",
+                    horarioEntrada3
+            );
+        } catch (EstacionamentoLotadoException e) {
+            throw new RuntimeException(e);
+        } catch (VeiculoJaEstacionadoException e) {
+            throw new RuntimeException(e);
+        } catch (TipoVeiculoInvalidoException e) {
+            throw new RuntimeException(e);
+        } catch (PlacaInvalidaException e) {
+            throw new RuntimeException(e);
+        }
         LocalDateTime horarioSaida3 = horarioService.criarHorario(11,1,30);
         double valorOnibus = saidaService.registrarSaida(
                 "ONI9999",

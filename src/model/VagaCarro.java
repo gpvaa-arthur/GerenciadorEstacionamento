@@ -3,7 +3,7 @@ package model;
 public class VagaCarro extends Vaga {
 
     public VagaCarro() {
-        super(30);
+        super(VagasEnum.MAX_VAGAS_CARRO.getVagasMaximas());
     }
 
     @Override
