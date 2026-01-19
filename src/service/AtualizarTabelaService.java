@@ -7,7 +7,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class AtualizarTabelaService {
 
-    private FormatHorarioService horarioService = new FormatHorarioService();
+    private FormatService horarioService = new FormatService();
 
     public void TabelaFinalizada(Ticket ticket){
         DefaultTableModel modelo = ModelView.getModeloFinalizado();
@@ -17,7 +17,7 @@ public class AtualizarTabelaService {
                 ticket.getVeiculo().getPlaca().toUpperCase(),
                 horarioService.formatHorario(ticket.getHorarioEntrada()),
                 horarioService.formatHorario(ticket.getHorarioSaida()),
-                ("R$ " + ticket.getValorCobrado())});
+                ("R$ " + FormatService.formatValor(ticket.getValorCobrado()))});
     }
 
     public void TabelaAtiva(Ticket ticket, DefaultTableModel modeloAtivo){

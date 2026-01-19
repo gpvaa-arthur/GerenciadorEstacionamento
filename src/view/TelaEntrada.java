@@ -7,7 +7,7 @@ import exceptions.VeiculoJaEstacionadoException;
 import model.TiposEnum;
 import repository.TicketRepository;
 import service.EntradaService;
-import service.FormatHorarioService;
+import service.FormatService;
 import view.util.AuxLayout;
 import view.util.Navegador;
 
@@ -43,7 +43,7 @@ public class TelaEntrada implements ITela {
     @Override
     public void configurar(Navegador nav) {
         EntradaService entradaService = new EntradaService(ticketRepository);
-        FormatHorarioService horarioService = new FormatHorarioService();
+        FormatService horarioService = new FormatService();
 
         panel.setLayout(new GridBagLayout());
 

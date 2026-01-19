@@ -4,7 +4,7 @@ import exceptions.HorarioInvalidoException;
 import exceptions.VeiculoNaoEncontradoException;
 import repository.TicketRepository;
 import service.FaturamentoService;
-import service.FormatHorarioService;
+import service.FormatService;
 import service.SaidaService;
 import view.util.AuxLayout;
 import view.util.Navegador;
@@ -42,7 +42,7 @@ public class TelaSaida implements ITela{
     public void configurar(Navegador nav){
         //Services
         SaidaService saidaService = new SaidaService(ticketRepository);
-        FormatHorarioService horarioService = new FormatHorarioService();
+        FormatService horarioService = new FormatService();
         FaturamentoService faturamentoService = new FaturamentoService(ticketRepository);
 
         GridBagConstraints gbc = new GridBagConstraints();

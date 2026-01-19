@@ -5,7 +5,7 @@ import view.util.ModelView;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class FormatHorarioService {
+public class FormatService {
 
     // USADO PELAS TELAS (dia, hora, minuto)
     public LocalDateTime criarHorario(int dia, int horas, int minutos) {
@@ -29,5 +29,9 @@ public class FormatHorarioService {
     public String formatHorario(LocalDateTime horario) {
         ModelView modelView = new ModelView();
         return horario.format(modelView.getFORMATTER());
+    }
+
+    public static String formatValor(double valorTotal){
+        return String.format("%.2f", valorTotal);
     }
 }
