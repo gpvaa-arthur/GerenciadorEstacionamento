@@ -94,6 +94,9 @@ public class TelaEntrada implements ITela {
             try {
                 entradaService.registrarEntrada(textoPlaca.getText(),getTipo(listaCB), horarioEntrada);
                 panelDisponibilidade.entradaPorTipo(getTipo(listaCB));
+                System.out.println(textoPlaca.getText());
+                System.out.println(horarioEntrada);
+                System.out.println();
             }
             catch (EstacionamentoLotadoException |
                      VeiculoJaEstacionadoException |
