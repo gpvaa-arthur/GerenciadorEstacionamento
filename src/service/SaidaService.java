@@ -64,7 +64,7 @@ public class SaidaService {
         repository.addTicketFinalizado(placa, ticket);
 
         //Atualiza tabela
-        tabelaService.TabelaHistorico(ticket);
+        tabelaService.TabelaFinalizada(ticket);
 
         return valor;
     }

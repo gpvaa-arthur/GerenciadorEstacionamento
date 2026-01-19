@@ -37,9 +37,13 @@ public class TicketRepository {
         return ticketsFinalizados.get(placa);
     }
 
-    // 👇 ESTE É O MÉTODO QUE FALTAVA
+    // Métodos que retornam o conjunto de tickets
     public Collection<Ticket> getTicketsFinalizados() {
         return ticketsFinalizados.values();
+    }
+
+    public Collection<Ticket> getTicketsAtivos() {
+        return ticketsAtivos.values();
     }
 
     // UTILITÁRIOS

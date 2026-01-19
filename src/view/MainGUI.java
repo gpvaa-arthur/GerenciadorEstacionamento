@@ -50,10 +50,10 @@ public class MainGUI {
 
 
         List<ITela> listaTela = List.of(
-                new TelaEntrada(ticketRepository, panelDisponibilidade),
-                new TelaSaida(ticketRepository, panelDisponibilidade),
-                new TelaFaturamento(ticketRepository),
-                new TelaHistorico(ticketRepository)
+                new TelaEntrada(ticketRepository, panelDisponibilidade), // 0
+                new TelaSaida(ticketRepository, panelDisponibilidade), // 1
+                new TelaFaturamento(ticketRepository), // 2
+                new TelaHistorico(ticketRepository) // 3
         );
 
         for (ITela iTela : listaTela) {
@@ -131,6 +131,7 @@ public class MainGUI {
             if(!(navegador.getIdAtual().equals(IDEnum.HISTORICO))){
                 int valor = autenticadorGUI.autenticarSenha();
                 if(valor == 1){
+                    ((TelaHistorico) listaTela.get(3)).getBotaoFinalizado().doClick();
                     navegador.setIdAtual(IDEnum.HISTORICO);
                     navegador.irPara(IDEnum.HISTORICO);
                 }

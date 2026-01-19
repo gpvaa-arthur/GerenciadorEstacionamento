@@ -8,38 +8,43 @@ public class ModelView {
     private final DateTimeFormatter FORMATTER =
             DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-    //Modelo de tabela para Histórico
-    private static DefaultTableModel modeloHistorico;
-    private static DefaultTableModel modeloDia;
-    private static DefaultTableModel modeloMes;
+    //Modelos de tabelas para Histórico
+    private static DefaultTableModel modeloFinalizado;
 
 
-    public void configModelHistorico() {
-        modeloHistorico = new DefaultTableModel() {
+
+
+    public void configModelFinalizado() {
+        modeloFinalizado = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false; // Nenhuma célula editável
             }
         };
-        modeloHistorico.addColumn("Veículo");
-        modeloHistorico.addColumn("Placa");
-        modeloHistorico.addColumn("Entrada");
-        modeloHistorico.addColumn("Saída");
-        modeloHistorico.addColumn("Preço");
+        modeloFinalizado.addColumn("Veículo");
+        modeloFinalizado.addColumn("Placa");
+        modeloFinalizado.addColumn("Entrada");
+        modeloFinalizado.addColumn("Saída");
+        modeloFinalizado.addColumn("Preço");
     }
-    public void configModelDia(){
-        modeloDia = new DefaultTableModel() {
+
+    public DefaultTableModel configModelAtivo() {
+        DefaultTableModel modeloAtivo;
+        modeloAtivo = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false; // Nenhuma célula editável
             }
         };
-        modeloDia.addColumn("Data");
-        modeloDia.addColumn("Faturamento Diário");
+        modeloAtivo.addColumn("Veículo");
+        modeloAtivo.addColumn("Placa");
+        modeloAtivo.addColumn("Entrada");
+        return modeloAtivo;
     }
 
-    public static DefaultTableModel getModeloHistorico() {
-        return modeloHistorico;
+
+    public static DefaultTableModel getModeloFinalizado() {
+        return modeloFinalizado;
     }
 
 
